@@ -1,0 +1,62 @@
+@Path("/deleteCat")
+		@POST 
+	    @Produces(MediaType.APPLICATION_XML) 
+		public ArrayList<RestStatus> delCategory(@FormParam("categoryList") String categoryList)
+		{
+			
+			ArrayList<String> catRefList = new ArrayList<>(Arrays.asList(categoryList.split(",")));
+			
+			ArrayList<RestStatus> resultList = new ArrayList<>();
+			
+			System.out.println(catRefList.size());
+			
+			IQServiceClient client = null;
+			ReadConfig properties = new ReadConfig();
+			String value = "failure";
+			boolean result= false;
+				
+		    try {
+		    		
+		    		String user = properties.getPropValues("IM_USER");
+		    		String pwd = properties.getPropValues("IM_PASSWORD");
+		    		String imUrl = properties.getPropValues("IM_URL");
+		    		String repo = properties.getPropValues("REPO");
+		    		String domain = properties.getPropValues("DOMAIN");
+		    		
+			        client = IQServiceClientManager.connect(user,pwd,domain,repo,imUrl,null, true);
+			        
+			        IQCategoryRequest categoryRequest = client.getCategoryRequest();
+			        
+			        for (String catRef : catRefList)
+			        {
+			        	RestStatus rs = new RestStatus();
+			        	rs.setListValue(catRef);
+			        	System.out.println(catRef);
+			        	CategoryKeyITO category = client.getCategoryRequest().getCategoryKeyByReferenceKey(catRef); 
+			        	result=categoryRequest.deleteCategory(category);
+			        	
+			        	if(result)
+			 			   value="success";
+			        	rs.setResult(value);
+			        	
+			        	resultList.add(rs);
+			        }
+			        
+		        }
+			catch(Exception e)
+			   {
+					RestStatus rs = new RestStatus();
+			     	e.printStackTrace();
+			        if (client!=null)
+			        	client.close();
+			        value = "Connection issue or Category Not found";
+			        rs.setResult(value);
+		        	//rs.setListValue(catRef);
+		        	
+		        	resultList.add(rs);
+			   
+			   }
+			   client.close();
+			   
+			   return resultList;
+		}

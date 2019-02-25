@@ -1,0 +1,187 @@
+<html>
+<head>
+	<title>API Example</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript">
+		var flag = false;
+		var accessToken = "6dbbfdd14f6f44988174b61f4bf649b0";
+		var baseUrl = "https://api.api.ai/v1/";
+
+		$(document).ready(function() {
+			$("#input").keypress(function(event) {
+				if (event.which == 13) {
+					event.preventDefault();
+					if (flag == false) {
+						send();
+					}
+					else {
+						self_bot();
+					}
+					
+				}
+			});
+			$("#rec").click(function(event) {
+				switchRecognition();
+			});
+		});
+
+		var recognition;
+
+		function startRecognition() {
+			recognition = new webkitSpeechRecognition();
+			recognition.onstart = function(event) {
+				updateRec();
+			};
+			recognition.onresult = function(event) {
+				var text = "";
+			    for (var i = event.resultIndex; i < event.results.length; ++i) {
+			    	text += event.results[i][0].transcript;
+			    }
+			    setInput(text);
+				stopRecognition();
+			};
+			recognition.onend = function() {
+				stopRecognition();
+			};
+			recognition.lang = "en-US";
+			recognition.start();
+		}
+	
+		function stopRecognition() {
+			if (recognition) {
+				recognition.stop();
+				recognition = null;
+			}
+			updateRec();
+		}
+
+		function switchRecognition() {
+			if (recognition) {
+				stopRecognition();
+			} else {
+				startRecognition();
+			}
+		}
+
+		function setInput(text) {
+			$("#input").val(text);
+			send();
+		}
+
+		function updateRec() {
+			$("#rec").text(recognition ? "Stop" : "Speak");
+		}
+
+		function self_bot() { 
+			var text = $("#input").val();
+			setResponse("You: "+text);
+			setResponse("Loading the results...");
+			var url_query = "//34ddd689.ngrok.io/PublishArticleAutomation/rest/SearchService/question/"+ text; 
+			//var url_query = "http://localhost:8080/PublishArticleAutomation/rest/SearchService/question/credit%20card";
+			$.get(url_query, function(data, status){
+        	//alert("Data: " + data + "\nStatus: " + status);
+        	return_answer(data);
+    		});
+			/*$.ajax({
+  			url: url_query,
+  			success: return_answer(data),
+  			dataType: "xml"
+			});*/
+		}
+
+		function return_answer(data) {
+			var res = $(data).find("title").text();
+			$('#demo').html("");
+			var title = [];
+			$(data).find("results").each(function(idx, v) {
+			title[idx] = [];
+			$(v).find("title").each(function( i , vi) {
+				title[idx].push( $(vi).text() );
+				});             
+			});
+			var url = [];
+			$(data).find("results").each(function(idx, v) {
+			url[idx] = [];
+			$(v).find("globalAnswerId").each(function( i , vi) {
+				url[idx].push( $(vi).text() );
+				});             
+			});
+			setResponse("Bot: Top KA Results in bottom div");
+			setResponse("Bot: Liked our KA results? Share your feedback Yes or No");
+			setHtml("<a target=\"_blank\" href=\""+url[0]+"\"style=\"text-aling:center\">"+title[0]+"</a>");
+			setHtml("<a target=\"_blank\" href=\""+url[1]+"\"style=\"text-aling:center\">"+title[1]+"</a>");
+			setHtml("<a target=\"_blank\" href=\""+url[2]+"\"style=\"text-aling:center\">"+title[2]+"</a>");
+			flag = false;
+    		//setResponse("API Success");
+		} 
+		function send() {
+			var text = $("#input").val();
+			//string1.toUpperCase() === string2.toUpperCase();
+			if (text.toUpperCase().includes("OKA")){
+				setResponse("You: "+text);
+				setResponse("Bot: Ask me your query");
+				flag = true;
+
+			}
+			else {
+				setResponse("You: "+text);
+				$.ajax({
+					type: "POST",
+					url: baseUrl + "query?v=20150910",
+					contentType: "application/json; charset=utf-8;Access-Control-Allow-Origin: *",
+					dataType: "json",
+					headers: {
+						"Authorization": "Bearer " + accessToken
+					},
+					data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
+
+					success: function(data) {
+						setResponse("Bot: "+data.result.fulfillment.speech);
+					},
+					error: function() {
+						setResponse("Internal Server Error");
+					}
+				});
+			}
+			
+			//setResponse("Loading...");
+		}
+
+		function setResponse(val) {
+			val = $('#response').val() + val;
+			$("#response").text(val + "\r\n");
+		}
+		function setHtml(val) {
+			val = $('#demo').html() + val;
+			$("#demo").html(val + "</br>");
+			$("#results").css("border","thick solid rgb(0, 0, 0)")
+		}
+
+	</script>
+	<style type="text/css">
+		body { width: 500px; margin: 0 auto; text-align: center; margin-top: 20px;background-image: url("https://image.freepik.com/free-vector/chatbot-concept-background-in-realistic-style_23-2147826284.jpg"); }
+		div {  position: absolute; }
+		input { width: 400px; }
+		button { width: 50px; }
+		textarea { width: 100%; }
+		a {text-decoration: underline;text-aling:center;color:Blue;}
+		p {background-color:white;}
+	</style>
+</head>
+<body>
+<div class="form-group"> 
+		<br>Chat History<br> <textarea class="form-control" id="response" cols="40" rows="20" style="color:Blue"></textarea>
+		</br>
+		<input id="input" type="text" class="form-control" placeholder="Type a message">
+	<div class="popup-messages-footer">
+		<br>Results</br>
+		<p id="demo"></p>
+	</div>
+</div>
+</body>
+</html>

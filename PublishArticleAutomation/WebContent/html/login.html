@@ -1,0 +1,75 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="/PublishArticleAutomation/Css/login_css.css">
+<!--<script src="jquery-3.3.1.min.js"></script>-->
+<script src="/PublishArticleAutomation/JS/jquery.min.js"></script>
+<link href="/PublishArticleAutomation/Css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <script src="bootstrap.min.js"></script> -->
+<script src="/PublishArticleAutomation/JS/bootstrap.min.js"></script>
+
+</head>
+
+
+
+<script>
+$(document).ready(function(){
+    $("#nav").hide();
+    $("#Message").hide();
+    $("#login").click(function(){
+    	var username = $("#username").val();
+    	var password = $("#password").val();
+ 		var new_password = encryptStringWithXORtoHex(password,6);   
+   		var send_string = "http://ausul2dkidx01.us.dell.com:8080/PublishArticleAutomation/rest/PublishService/login/"+username+"/"+new_password;      
+
+      	$.get(send_string, function(data, status){
+      		if (data){
+      			sessionStorage.setItem("login_status", true);
+      			location.href = "html/publish.html";
+      		}   
+      		else
+      			$('#Message').show();
+        		$('#Message').text("Invalid Credentials");
+      	});       
+	});     
+});
+</script>
+
+<script>
+   function encryptStringWithXORtoHex(input,key) {
+    var c = '';
+    for(var i=0; i<input.length; i++) {
+        c +=String.fromCharCode(key^input.charCodeAt(i));  
+    }
+    return c;
+}
+</script>
+
+<body>
+  <div class = "header_ribbon"></div>	
+  <div id = "nav" class = "nav">
+    <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Publish from Doc ID</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Bulk Publish</a>
+    </li>
+	</ul>
+  </div>
+  <div class="wrapper">
+	<h2 id = "Message">  </h2>
+    <form class="form-signin" name="login-form" id="login-form">       
+      <h2 class="form-signin-heading">Please login</h2>
+      <input type="text"  id="username" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+      <input type="password" id="password" class="form-control" name="password" placeholder="Password" required=""/>   
+    </form>
+	<button class="btn btn-lg btn-primary btn-block" id = "login">Login</button>   
+  </div>
+</body>
+</html>

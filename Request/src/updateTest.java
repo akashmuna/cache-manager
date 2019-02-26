@@ -24,14 +24,14 @@ public class updateTest extends Thread implements Runnable{
     { 
         try
         {  
-            System.out.println ("Thread " + Thread.currentThread().getId() + " is running"); 
+           // System.out.println ("Thread " + Thread.currentThread().getId() + " is running"); 
             postReqUpdateCat pr = new postReqUpdateCat();
-            System.out.println(doc);
-            System.out.println(loc);
+            //System.out.println(doc);
+            /*System.out.println(loc);
             System.out.println(del);
             System.out.println(new_c);
             System.out.println(instance);
-            System.out.println(url_to_hit);
+            System.out.println(url_to_hit);*/
 			pr.send_req(doc,loc,del,new_c, url_to_hit, instance);
         } 
         catch (Exception e) 
@@ -44,20 +44,17 @@ public class updateTest extends Thread implements Runnable{
 		final String path = System.getProperty("user.dir");
 		getPropValues gpob = new getPropValues();
 		// Input file should have same number of entries per line as num threads
-		int num_threads = 3;
+		int num_threads = 2;
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(path + "/test"));
+			BufferedReader reader = new BufferedReader(new FileReader(path + "/test_two_threads_1000.txt"));
 			String input;String[] arr_input;
 			// URLS are in config.properties
-			int  curr_url = 0; int num_url = 2; 
-			String instance; int num_instances = 2; int ins_num = 0;
+			int  curr_url = 0; int num_url = 2; String instance; int num_instances = 2; int ins_num = 0;
 			while ((input = reader.readLine())!=null) {
 				// Documents+ parameters delimited by #
 				String[] doc_params = input.split("#");
 				// Start thread for every doc in current line 
 				for (int i = 0; i < num_threads ; i++) {
-						/*instance = Integer.toString((ins_num % num_instances) +1);
-						num_instances ++;*/
 						instance = Integer.toString(i+1);
 						String url_to_hit = gpob.getProperties("IM_URL_"+Integer.toString((curr_url % num_url)+1));
 						curr_url++;

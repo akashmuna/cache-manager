@@ -11,7 +11,7 @@ public class postReqUpdateCat {
 
 	public void send_req(String docid, String locale, String remCatRef, String newCatRefKey, String url_to_hit, String instance) {
 		OkHttpClient client = new OkHttpClient();
-		OkHttpClient client1  = client.newBuilder().readTimeout(45,TimeUnit.SECONDS).build();
+		OkHttpClient client1  = client.newBuilder().readTimeout(500,TimeUnit.SECONDS).build();
 		
 		System.out.println(docid);
 		System.out.println(locale);
@@ -33,8 +33,12 @@ public class postReqUpdateCat {
 		
 		try {
 			Response response = client1.newCall(request).execute();
-			System.out.println(response);
-			System.out.println(response.body().string());
+			//System.out.println(docid);
+			//String s = response.body().string();
+			//System.out.println(s);
+			/*if (s.contains("500") {
+			  
+			}*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

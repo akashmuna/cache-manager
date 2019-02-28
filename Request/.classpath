@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="external jars/kotlin-stdlib-common-1.2.60.jar"/>
 	<classpathentry kind="lib" path="external jars/annotations-13.0.jar"/>
 	<classpathentry kind="lib" path="external jars/okio-2.0.0.jar"/>
+	<classpathentry kind="lib" path="external jars/log4j-1.2.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

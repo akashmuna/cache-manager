@@ -25,7 +25,7 @@ public class postReq {
 		
 		try {
 			Response response = client.newCall(request).execute();
-			System.out.println(response);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -19,14 +19,14 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		PropertyConfigurator.configure("C:\\OKB_Taxonomy\\log4j.properties");
-		//PropertyConfigurator.configure("/app/IntegratedSaleCat/log4j.properties");
+		//PropertyConfigurator.configure("C:\\OKB_Taxonomy\\log4j.properties");
+		PropertyConfigurator.configure("/app/IntegratedSaleCat/log4j.properties");
 		ReadExcel rd = new ReadExcel();
 		ArrayList<Request> requestList = new ArrayList<>();
-		//String fileName = args[0];
+		String fileName = args[0];
 		try {
-			requestList = rd.readExcel("C:\\OKB_Taxonomy\\Final\\DocWithCat\\Left_Over_Docs\\Test.xlsx");
-			//requestList = rd.readExcel(fileName);  
+			//requestList = rd.readExcel("C:\\OKB_Taxonomy\\Final\\DocWithCat\\Left_Over_Docs\\Test.xlsx");
+			requestList = rd.readExcel(fileName);  
 		} catch (EncryptedDocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,8 +40,8 @@ public class Test {
 		
 		RestCall rc = new RestCall();
 		
-		/*if (args[1]!= null)
-			instanceNo=args[1];*/
+		if (args[1]!= null)
+			instanceNo=args[1];
 		rc.removePublish(requestList,instanceNo);
 
 	}

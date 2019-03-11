@@ -22,8 +22,8 @@ public class ReadConfig {
 		Properties prop = new Properties();
 		//String propFileName = "SIT1-config.properties";
 
-		inputStream =  new FileInputStream("C:\\OKB_Taxonomy\\config.properties");
-		//inputStream =  new FileInputStream("/app/IntegratedSalesCat/properties/config.properties");
+		//inputStream =  new FileInputStream("C:\\OKB_Taxonomy\\config.properties");
+		inputStream =  new FileInputStream("/app/IntegratedSalesCat/properties/config.properties");
 		//
 		if (inputStream != null) {
 			prop.load(inputStream);

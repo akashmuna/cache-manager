@@ -44,13 +44,13 @@ public class ReadExcel {
         // 2. Or you can use a for-each loop
         System.out.println("Retrieving Sheets using for-each loop");
         for(Sheet sheet: workbook) {
-            System.out.println("=> " + sheet.getSheetName());
+           // System.out.println("=> " + sheet.getSheetName());
         }
 
         // 3. Or you can use a Java 8 forEach with lambda
         System.out.println("Retrieving Sheets using Java 8 forEach with lambda");
         workbook.forEach(sheet -> {
-            System.out.println("=> " + sheet.getSheetName());
+            //System.out.println("=> " + sheet.getSheetName());
         });
 
         /*
@@ -93,6 +93,11 @@ public class ReadExcel {
             System.out.println("locale:"+req.getLocaleid());
             System.out.println("remCatRef:"+req.getRemRefCat());
             System.out.println("newCatRefKey:"+req.getNewRefCat());*/
+            logger.info("docid:"+req.getDocid());
+            logger.info("locale:"+req.getLocaleid());
+            logger.info("remCatRef:"+req.getRemRefCat());
+            logger.info("newCatRefKey:"+req.getNewRefCat());
+            
         }
 
 

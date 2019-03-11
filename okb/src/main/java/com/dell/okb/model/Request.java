@@ -1,4 +1,4 @@
-package com.dell.okb;
+package com.dell.okb.model;
 
 public class Request {
 

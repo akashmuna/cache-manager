@@ -1,15 +1,21 @@
-package com.dell.okb;
+package com.dell.okb.util;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+
+import com.dell.okb.model.Request;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
 public class ReadExcel {
+	
+	private static final Logger logger = Logger.getLogger(ReadExcel.class);
 	
 	public ArrayList<Request> readExcel(String FileName) throws IOException, EncryptedDocumentException, InvalidFormatException
 	{
@@ -83,16 +89,16 @@ public class ReadExcel {
               //  System.out.print(cell.getColumnIndex()+":"+cellValue + "\t");
             }
             RequestList.add(req);
-            System.out.println("docid:"+req.getDocid());
+           /* System.out.println("docid:"+req.getDocid());
             System.out.println("locale:"+req.getLocaleid());
             System.out.println("remCatRef:"+req.getRemRefCat());
-            System.out.println("newCatRefKey:"+req.getNewRefCat());
+            System.out.println("newCatRefKey:"+req.getNewRefCat());*/
         }
 
 
         // Closing the workbook
         workbook.close();
-		return null;
+		return RequestList;
 		
 	}
 

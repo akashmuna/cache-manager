@@ -14,6 +14,7 @@ public class ReadExcel {
 	public ArrayList<Request> readExcel(String FileName) throws IOException, EncryptedDocumentException, InvalidFormatException
 	{
 
+		ArrayList<Request> RequestList = new ArrayList<>();
         // Creating a Workbook from an Excel file (.xls or .xlsx)
         Workbook workbook = WorkbookFactory.create(new File(FileName));
 
@@ -65,17 +66,27 @@ public class ReadExcel {
 
             // Now let's iterate over the columns of the current row
             Iterator<Cell> cellIterator = row.cellIterator();
-            int i =0;
-
+           
+            Request req = new Request();
             while (cellIterator.hasNext()) {
             	
                 Cell cell = cellIterator.next();
                 String cellValue = dataFormatter.formatCellValue(cell);
-                
-                System.out.print(i+":"+cellValue + "\t");
-                ++i;
+                if (cell.getColumnIndex()==0)
+                	req.setDocid(cellValue);
+                if (cell.getColumnIndex()==1)
+                	req.setLocaleid(cellValue);
+                if (cell.getColumnIndex()==2)
+                	req.setRemRefCat(cellValue);
+                if (cell.getColumnIndex()==3)
+                	req.setNewRefCat(cellValue);
+              //  System.out.print(cell.getColumnIndex()+":"+cellValue + "\t");
             }
-            System.out.println();
+            RequestList.add(req);
+            System.out.println("docid:"+req.getDocid());
+            System.out.println("locale:"+req.getLocaleid());
+            System.out.println("remCatRef:"+req.getRemRefCat());
+            System.out.println("newCatRefKey:"+req.getNewRefCat());
         }
 
 

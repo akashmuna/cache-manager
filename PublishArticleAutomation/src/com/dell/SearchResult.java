@@ -275,7 +275,7 @@ public class SearchResult {
 					.header("Content-Type", "application/x-www-form-urlencoded").header("cache-control", "no-cache")
 					.body("userName="+cp_user+"&password="+cp_password+"&siteName="+siteName+"&userExternalType=CONTACT")
 					.asString();
-			// System.out.println(response.getBody().toString());
+			 System.out.println(response.getBody().toString());
 			responseString = response.getBody().toString();
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block

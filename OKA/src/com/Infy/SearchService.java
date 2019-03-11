@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.json.JSONException;
 import com.Infy.*;
+import com.Infy.ReadConfig;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -37,12 +38,13 @@ public class SearchService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Results> getJsonResponse(@QueryParam("input_text") String query) throws JSONException, ParseException, IOException
 	{
-		
+		ReadConfig properties = new ReadConfig();
 		query=query.replace(" ", "+");
 		
+		String rest_url = properties.getPropValues("REST_URL"); 
 		try {
 			System.out.println("Started!!");
-			HttpResponse<String> response = Unirest.get("http://localhost:8080/PublishArticleAutomation/rest/SearchService/question/"+query).header("cache-control", "no-cache").asString();
+			HttpResponse<String> response = Unirest.get(rest_url+query).header("cache-control", "no-cache").asString();
 			System.out.println("Response "+response.getCode());
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block

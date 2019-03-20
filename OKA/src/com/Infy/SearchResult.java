@@ -54,13 +54,6 @@ public class SearchResult {
 		// System.out.println("Search Results : "+searchResults);
 		String fileName ="C:\\Service_Cloud\\Results.xml";
 		convertToXML(searchResults, fileName);
-
-		/*try {
-			finalresults = (ArrayList<Results>) parseResultsXML(fileName);
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}*/
 		 
 	}
 

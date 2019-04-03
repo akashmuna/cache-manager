@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.citizen.controller.HeadlinesController;
+import com.citizen.model.Headline;
+import com.citizen.model.NewsAPIResponse;
 import com.citizen.util.CrunchifyInMemoryCache;
-import com.ctitizen.model.Headline;
-import com.ctitizen.model.NewsAPIResponse;
 
 public class TestCache {
 	

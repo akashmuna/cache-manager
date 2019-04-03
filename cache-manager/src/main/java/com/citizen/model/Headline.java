@@ -1,4 +1,4 @@
-package com.ctitizen.model;
+package com.citizen.model;
 
 public class Headline {
 	

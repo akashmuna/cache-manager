@@ -1,4 +1,4 @@
-package com.ctitizen.model;
+package com.citizen.model;
 
 import java.util.List;
 

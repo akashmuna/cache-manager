@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.ctitizen.model.NewsAPIResponse;
+import com.citizen.model.NewsAPIResponse;
 
 @RestController
 public class HeadlinesController {

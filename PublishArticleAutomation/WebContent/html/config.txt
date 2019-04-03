@@ -1,0 +1,9 @@
+ENV_URL=citizens--tst2.custhelp.com
+XML_File_Path=C:\\Service_Cloud\\Results.xml
+API_USERID=testapi
+API_PASSWORD=Test@123
+siteName=citizens__tst2
+AUTH_IRS_URL=citizens--tst2-irs.custhelp.com
+CP_USERID=N044796
+CP_PASSWORD=Infy@123
+ASK_QUESTION_URL=citizens--tst2-qp.custhelp.com

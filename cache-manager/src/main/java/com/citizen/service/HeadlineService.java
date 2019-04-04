@@ -1,5 +1,7 @@
 package com.citizen.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,6 +18,8 @@ public class HeadlineService {
 
 	RestTemplate restTemplate = new RestTemplate();
 	
+	private static final Logger logger = LoggerFactory.getLogger(HeadlineService.class);
+	
 	public NewsAPIResponse retrieveResults() {
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -26,6 +30,8 @@ public class HeadlineService {
 		ApplicationConfiguration appsConfiguration = new ApplicationConfiguration();
 		
 		String restUrl = appsConfiguration.getURL(); 
+		
+		logger.debug("URL used to retrieve the News : "+ restUrl);
 		
 		ResponseEntity response = restTemplate.exchange(restUrl,HttpMethod.GET,Entity,NewsAPIResponse.class);
 		

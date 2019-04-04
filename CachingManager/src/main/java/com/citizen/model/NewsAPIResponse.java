@@ -23,7 +23,6 @@ public class NewsAPIResponse {
 		this.totalResults = totalResults;
 	}
 	
-	@Cacheable("articleCache")
 	public List<Headline> getArticles() {
 		return articles;
 	}

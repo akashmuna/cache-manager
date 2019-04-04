@@ -19,7 +19,8 @@ public class JCacheConfig {
 			@Override
 			public void customize(CacheManager cacheManager) {
 				MutableConfiguration<Object, Object> config = new MutableConfiguration<Object, Object>();
-				config.setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.FIVE_MINUTES));
+				config.setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
+				config.setStoreByValue(false);
 				config.setStatisticsEnabled(true);
 				cacheManager.createCache("articleCache", config);
 				

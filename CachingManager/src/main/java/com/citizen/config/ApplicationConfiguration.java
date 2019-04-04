@@ -1,12 +1,13 @@
 package com.citizen.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("app")
+
 public class ApplicationConfiguration {
 	
+	@Value("{app.URL}")
 	private String URL;
 
 	public String getURL() {

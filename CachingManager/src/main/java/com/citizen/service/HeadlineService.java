@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,24 +18,25 @@ import com.citizen.config.ApplicationConfiguration;
 import com.citizen.model.Headline;
 import com.citizen.model.NewsAPIResponse;
 
-@Component
 @Service
 public class HeadlineService {
 
 	RestTemplate restTemplate = new RestTemplate();
+	@Autowired
+	private ApplicationConfiguration applicationConfiguration;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HeadlineService.class);
 	
 	public List<Headline> retrieveResults() {
 		
+		String restUrl = applicationConfiguration.getURL();
+		
+		logger.debug("URL used to retrieve the News : "+ restUrl);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setCacheControl("no-cache");
 		HttpEntity<String> Entity = new HttpEntity<String>(headers);
-		
-		ApplicationConfiguration appsConfiguration = new ApplicationConfiguration();
-		
-		String restUrl = appsConfiguration.getURL(); 
 		
 		logger.debug("URL used to retrieve the News : "+ restUrl);
 		

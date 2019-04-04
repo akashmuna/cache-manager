@@ -1,5 +1,7 @@
 package com.citizen.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.citizen.config.ApplicationConfiguration;
+import com.citizen.model.Headline;
 import com.citizen.model.NewsAPIResponse;
 
 @Component
@@ -22,7 +25,7 @@ public class HeadlineService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HeadlineService.class);
 	
-	public NewsAPIResponse retrieveResults() {
+	public List<Headline> retrieveResults() {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -39,7 +42,7 @@ public class HeadlineService {
 		
 		NewsAPIResponse newsApiResponse = (NewsAPIResponse) response.getBody();
 		
-		return newsApiResponse;
+		return newsApiResponse.getArticles();
 		
 	}
 

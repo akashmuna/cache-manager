@@ -12,6 +12,7 @@ import com.citizen.model.NewsAPIResponse;
 import com.citizen.service.HeadlineService;
 
 @RestController
+@RequestMapping("/NewsAPI")
 public class HeadlinesController {
 	
 	@Autowired

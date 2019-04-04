@@ -22,6 +22,7 @@ import com.citizen.model.NewsAPIResponse;
 public class HeadlineService {
 
 	RestTemplate restTemplate = new RestTemplate();
+	
 	@Autowired
 	private ApplicationConfiguration applicationConfiguration;
 	
@@ -30,15 +31,13 @@ public class HeadlineService {
 	public List<Headline> retrieveResults() {
 		
 		String restUrl = applicationConfiguration.getURL();
-		
 		logger.debug("URL used to retrieve the News : "+ restUrl);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setCacheControl("no-cache");
-		HttpEntity<String> Entity = new HttpEntity<String>(headers);
 		
-		logger.debug("URL used to retrieve the News : "+ restUrl);
+		HttpEntity<String> Entity = new HttpEntity<String>(headers);
 		
 		ResponseEntity response = restTemplate.exchange(restUrl,HttpMethod.GET,Entity,NewsAPIResponse.class);
 		

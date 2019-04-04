@@ -2,11 +2,14 @@ package com.citizen.model;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
+
 public class NewsAPIResponse {
 	
 	private String status;
 	private String totalResults;
 	private List<Headline> articles;
+	
 	public String getStatus() {
 		return status;
 	}
@@ -19,6 +22,8 @@ public class NewsAPIResponse {
 	public void setTotalResults(String totalResults) {
 		this.totalResults = totalResults;
 	}
+	
+	@Cacheable("articleCache")
 	public List<Headline> getArticles() {
 		return articles;
 	}

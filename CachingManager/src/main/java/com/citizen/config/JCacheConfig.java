@@ -1,31 +1,40 @@
 package com.citizen.config;
 
-import javax.cache.CacheManager;
-import javax.cache.configuration.MutableConfiguration;
-import javax.cache.expiry.CreatedExpiryPolicy;
-import javax.cache.expiry.Duration;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import com.citizen.service.HeadlineService;
 
 @Configuration
 @EnableCaching
-public class JCacheConfig {
-	
-	public JCacheManagerCustomizer cacheCustomizer() {
-		return new JCacheManagerCustomizer() {
-			
-			@Override
-			public void customize(CacheManager cacheManager) {
-				MutableConfiguration<Object, Object> config = new MutableConfiguration<Object, Object>();
-				config.setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
-				config.setStoreByValue(false);
-				config.setStatisticsEnabled(true);
-				cacheManager.createCache("articleCache", config);
-				
-			}
-		};
-	}
+@EnableScheduling
+public class JCacheConfig{
+    
+       public static final String ARTICLE_CACHE = "articleCache";
+       
+       private static final Logger logger = LoggerFactory.getLogger(JCacheConfig.class);
+    
+       @Bean
+    public ConcurrentMapCacheManager cacheManager() {
+        ConcurrentMapCacheManager cacheManager = new ConcurrentMapCacheManager(ARTICLE_CACHE);
 
+        return cacheManager;
+    }
+
+    //destroy cache each 1 minute
+    @CacheEvict(allEntries = true, value = {ARTICLE_CACHE})
+    @Scheduled(fixedDelay = 3 * 60 * 60 * 1000 ,  initialDelay = 500)
+    public void reportCacheEvict() {
+              logger.debug("Flush Cache");
+    }
 }

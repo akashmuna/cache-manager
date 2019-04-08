@@ -22,7 +22,7 @@ import com.citizen.model.NewsAPIResponse;
 @Service
 public class HeadlineService {
 
-	RestTemplate restTemplate = new RestTemplate();
+	private RestTemplate restTemplate = new RestTemplate();
 	
 	@Autowired
 	private ApplicationConfiguration applicationConfiguration;

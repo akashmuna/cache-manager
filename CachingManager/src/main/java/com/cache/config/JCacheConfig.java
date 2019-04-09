@@ -1,7 +1,4 @@
-package com.citizen.config;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package com.cache.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-
-import com.citizen.service.HeadlineService;
 
 @Configuration
 @EnableCaching

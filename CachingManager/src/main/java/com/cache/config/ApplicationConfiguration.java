@@ -1,4 +1,4 @@
-package com.citizen.config;
+package com.cache.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package com.citizen.service;
+package com.cache.service;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.citizen.config.ApplicationConfiguration;
-import com.citizen.model.Headline;
-import com.citizen.model.NewsAPIResponse;
+import com.cache.config.ApplicationConfiguration;
+import com.cache.model.Headline;
+import com.cache.model.NewsAPIResponse;
 
 @Service
 public class HeadlineService {

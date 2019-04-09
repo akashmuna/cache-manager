@@ -1,10 +1,14 @@
 package com.citizen.service;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.citizen.config.ApplicationConfiguration;
 import com.citizen.model.AskQuestionResponse;
 import com.citizen.model.AuthToken;
 import com.citizen.model.AuthenticationToken;
@@ -24,23 +29,27 @@ public class SearchService {
 	
 	private RestTemplate restTemplate;
 	
-	@Autowired
 	private AuthenticationToken authenticationToken;
 	
-	@Autowired
 	private AuthToken authToken; 
 	
-	@Autowired
 	private InitialScreenSession intialScreenSession;
 	
-	@Autowired
 	private Results searchResults;
+	
+	@Autowired
+	private ApplicationConfiguration applicationConfiguration;
 
 	public List<KAResults> getTopSearchResults(String question_box) {
 		
 		// To authenticate and authorize the API User 
-		authToken = getAuthToken();
-		
+		try {
+			authToken = getAuthToken();
+		}
+		catch(JSONException e)
+		{
+			e.printStackTrace();
+		}
 		//To authenticate and authorize the Console User
 		authenticationToken = getAuthenticationToken(authToken.getAuthenticationToken());
 		
@@ -55,14 +64,14 @@ public class SearchService {
 	
 	private Results AskQuestion(String authenticationToken2, String integrationUserToken, String session,String question_box) {
 		
-		String restURL = "https://citizens--tst2-qp.custhelp.com//srt/api/v1/search/question?question="+question_box;
+		String restURL = "https://"+applicationConfiguration.getASK_QUESTION_URL()+"/srt/api/v1/search/question?question="+question_box;
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setCacheControl("no-cache");
-		headers.setAccept((List<MediaType>) MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.set("kmauthtoken", 
-		        "{\"siteName\":\"citizens__tst1\",\"localeId\":\"en_US\",\"interfaceId\":\"1\",\"integrationUserToken\":\"" + 
+		        "{\"siteName\":\""+applicationConfiguration.getSiteName()+"\",\"localeId\":\"en_US\",\"interfaceId\":\"1\",\"integrationUserToken\":\"" + 
 		        		authenticationToken + "\",\"userToken\":\"" + integrationUserToken + "\"}");
 		
 		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
@@ -81,14 +90,14 @@ public class SearchService {
 
 	private InitialScreenSession getSessionValue(String authenticationToken, String integrationUserToken) {
 		
-		String restURL = "https://citizens--tst1-qp.custhelp.com/srt/api/latest/search/initialScreen";
+		String restURL = "https://"+applicationConfiguration.getASK_QUESTION_URL()+"/srt/api/latest/search/initialScreen";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setCacheControl("no-cache");
-		headers.setAccept((List<MediaType>) MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.set("kmauthtoken", 
-		        "{\"siteName\":\"citizens__tst1\",\"localeId\":\"en_US\",\"interfaceId\":\"1\",\"integrationUserToken\":\"" + 
+		        "{\"siteName\":\""+applicationConfiguration.getSiteName()+"\",\"localeId\":\"en_US\",\"interfaceId\":\"1\",\"integrationUserToken\":\"" + 
 		        		authenticationToken + "\",\"userToken\":\"" + integrationUserToken + "\"}");
 		
 		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
@@ -108,19 +117,19 @@ public class SearchService {
 
 	private AuthenticationToken getAuthenticationToken(String authenticationToken) {
 		
-		String restURL = "https://citizens--tst1-irs.custhelp.com/km/api/latest/auth/authorize";
+		String restURL = "https://"+applicationConfiguration.getAUTH_IRS_URL()+"/km/api/latest/auth/authorize";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setCacheControl("no-cache");
-		headers.setAccept((List<MediaType>) MediaType.APPLICATION_JSON);
-		headers.set("kmauthtoken", "{\"siteName\":\"citizens__tst1\",\"localeId\":\"en_US\",\"integrationUserToken\":\""+authenticationToken+"\"}");
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.set("kmauthtoken", "{\"siteName\":\""+applicationConfiguration.getSiteName()+"\",\"localeId\":\"en_US\",\"integrationUserToken\":\""+authenticationToken+"\"}");
 		
 		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-		map.add("userName", "testapi");
-		map.add("password", "Test@123");
-		map.add("siteName", "citizens__tst1");
-		map.add("userExternalType", "CONTACT");
+		map.add("userName",applicationConfiguration.getAPI_USERID());
+		map.add("password", applicationConfiguration.getAPI_PASSWORD());
+		map.add("siteName",applicationConfiguration.getSiteName());
+		map.add("userExternalType", applicationConfiguration.getUserExternalType() );
 
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
@@ -131,28 +140,42 @@ public class SearchService {
 		return (AuthenticationToken) response.getBody();
 	}
 
-	public AuthToken getAuthToken()
+	public AuthToken getAuthToken() throws JSONException
 	{
-		String restURL = "https://citizens--tst1-irs.custhelp.com/km/api/latest/auth/integration/authorize";
+		String restURL = "https://"+ applicationConfiguration.getAUTH_IRS_URL()+"/km/api/latest/auth/integration/authorize";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.setCacheControl("no-cache");
-		headers.setAccept((List<MediaType>) MediaType.APPLICATION_JSON);
-		headers.set("kmauthtoken", "{\"login\":\"testapi\",\"password\":\"Test@123\",\"siteName\":\"citizens__tst1\",\"localeId\":\"en_US\"}");
+		
+		//headers.set("Content-Type", "application/json");
+		//headers.set("cache-control", "no-cache");
+		
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		//headers.set("Accept",MediaType.APPLICATION_JSON_VALUE);
+		
+		headers.set("kmauthtoken", "{\"login\":\""+applicationConfiguration.getAPI_USERID()+"\",\"password\":\""+applicationConfiguration.getAPI_PASSWORD()+"\",\"siteName\":\""+applicationConfiguration.getSiteName()+"\",\"localeId\":\"en_US\"}");
+		
 		
 		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-		map.add("login", "testapi");
-		map.add("password", "Test@123");
-		map.add("siteName", "citizens__tst1");
+		map.add("login",applicationConfiguration.getAPI_USERID());;
+		map.add("password", applicationConfiguration.getAPI_PASSWORD());
+		map.add("siteName", applicationConfiguration.getSiteName());
+		
+		JSONObject json = new JSONObject();
+		json.put("login", applicationConfiguration.getAPI_USERID());
+		json.put("password", applicationConfiguration.getAPI_PASSWORD());
+		json.put("siteName", applicationConfiguration.getSiteName());
+		
+		//final HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map ,headers);
 
-		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-
+		HttpEntity <?> request = new HttpEntity <Object> (json, headers);
+		
 		restTemplate = new RestTemplate();
 		
+		//ResponseEntity response = restTemplate.exchange(restURL, HttpMethod.POST, request, AuthToken.class); 
 		ResponseEntity response = restTemplate.postForEntity(restURL, request , AuthToken.class );
 		
-		return (AuthToken) response.getBody();
+		return (AuthToken)response.getBody(); 
 
 	}
 

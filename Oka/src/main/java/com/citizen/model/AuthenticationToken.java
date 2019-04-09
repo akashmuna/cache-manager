@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AuthenticationToken {
 	
+	@Autowired
 	private AuthorizationUserToken authenticationToken;
 
 	public AuthorizationUserToken getAuthenticationToken() {

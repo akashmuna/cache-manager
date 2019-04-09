@@ -19,7 +19,7 @@ Highlights :
 * Caching mechanism to speed up responses
 * Uses [NewsAPI](https://newsapi.org) to Fetch the top-headline of the day.
 
-##### Note:
+#### Note:
 This is by no means a sophisticated CacheManager; it comes with no cache configuration options. However, it may be useful for testing or simple caching scenarios. For advanced local caching needs, consider JCacheCacheManager, EhCacheCacheManager, CaffeineCacheManager.
 
 ### Endpoints

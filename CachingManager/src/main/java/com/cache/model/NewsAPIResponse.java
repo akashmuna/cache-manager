@@ -2,8 +2,6 @@ package com.cache.model;
 
 import java.util.List;
 
-import org.springframework.cache.annotation.Cacheable;
-
 public class NewsAPIResponse {
 	
 	private String status;

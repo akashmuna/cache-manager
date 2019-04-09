@@ -1,4 +1,4 @@
-package com.citizen.model;
+package com.cache.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

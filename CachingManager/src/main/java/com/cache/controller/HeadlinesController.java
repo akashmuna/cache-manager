@@ -1,4 +1,4 @@
-package com.citizen.controller;
+package com.cache.controller;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.citizen.model.Headline;
-import com.citizen.model.NewsAPIResponse;
-import com.citizen.service.HeadlineService;
+import com.cache.model.Headline;
+import com.cache.model.NewsAPIResponse;
+import com.cache.service.HeadlineService;
 
 @RestController
 @RequestMapping("/NewsAPI")

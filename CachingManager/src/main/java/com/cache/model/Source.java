@@ -1,4 +1,4 @@
-package com.citizen.model;
+package com.cache.model;
 
 public class Source {
 	

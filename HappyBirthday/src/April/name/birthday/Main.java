@@ -1,4 +1,4 @@
-package April.shubhra.didi.birthday;
+package April.name.birthday;
 
 import org.jfugue.Pattern;
 import org.jfugue.Player;

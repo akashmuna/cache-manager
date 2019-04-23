@@ -13,11 +13,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.cache.config.ApplicationConfiguration;
 import com.cache.model.Headline;
 import com.cache.model.NewsAPIResponse;
+import com.cache.util.exception.NewsAPIException;
 
 @Service
 public class HeadlineService {
@@ -26,6 +28,8 @@ public class HeadlineService {
 	
 	@Autowired
 	private ApplicationConfiguration applicationConfiguration;
+	
+	private ResponseEntity response; 
 	
 	private static final Logger logger = LoggerFactory.getLogger(HeadlineService.class);
 	
@@ -41,7 +45,17 @@ public class HeadlineService {
 		
 		HttpEntity<String> Entity = new HttpEntity<String>(headers);
 		
-		ResponseEntity response = restTemplate.exchange(restUrl,HttpMethod.GET,Entity,NewsAPIResponse.class);
+		try {
+			response = restTemplate.exchange(restUrl,HttpMethod.GET,Entity,NewsAPIResponse.class);
+		}
+		catch(RestClientException rce) {
+			logger.info("Please check the Debug logs...");
+			rce.printStackTrace();
+			
+			String message = "Call to the NEWSAPI.org failed";
+			throw new NewsAPIException(message, rce.getMessage(), restUrl);
+		}
+		
 		
 		NewsAPIResponse newsApiResponse = (NewsAPIResponse) response.getBody();
 		

@@ -13,7 +13,7 @@ CachingManager is a Spring MVC + CacheManager implemented application which help
     ```
 ### Solution Architecture 
 
-![Imgur](https://imgur.com/0QfDg17.jpg)
+![Imgurl](https://imgur.com/0QfDg17.jpg)
 
 Highlights :
 * Caching mechanism to speed up responses

@@ -18,7 +18,4 @@ public class ApplicationConfiguration {
 	public void setURL(String uRL) {
 		URL = uRL;
 	}
-	
-	
-
 }

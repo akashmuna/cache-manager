@@ -26,7 +26,7 @@ public class JCacheConfig{
         return cacheManager;
     }
 
-    //destroy cache each 1 minute
+    //destroy cache each 3 Hours
     @CacheEvict(allEntries = true, value = {ARTICLE_CACHE})
     @Scheduled(fixedDelay = 3 * 60 * 60 * 1000 ,  initialDelay = 500)
     public void reportCacheEvict() {

@@ -25,6 +25,7 @@ Follow the [Redis Guide](https://redis.io/download) to Install the Redis IO on y
 
 Highlights :
 * Caching mechanism to speed up responses
+* Uses Redis IO caching mechanism to speed up your responses.
 * Uses [NewsAPI](https://newsapi.org) to Fetch the top-headline of the day.
 
 #### Note:

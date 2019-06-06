@@ -17,20 +17,12 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 @EnableCaching
 public class JCacheConfig{
     
        public static final String NEWS_CACHE = "newsCache";
-       
-       // New Sources 
-       public static final String CNN_SOURCE = "cnn";
-       public static final String GOOGLE_NEWS_IN = "google-news-in";
-       public static final String NEW_YORK_TIMES = "the-new-york-times";
-       
-       private static final Logger logger = LoggerFactory.getLogger(JCacheConfig.class);
        
        @Autowired
        private Environment env;

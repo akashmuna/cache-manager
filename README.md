@@ -8,10 +8,9 @@ The Project retrieves the current headlines and stores them in a Redis Cache
 
 ### PreRequisites :
 
-1.Installing Redis on your Local System <br/>
+1. Installing Redis on your Local System <br/>
 
-Follow the [Redis Guide](https://redis.io/download) to Install the Redis IO on your Local System. <br/>
-
+Follow the [Redis Guide](https://redis.io/download) to Install the Redis IO on your Local System. 
 2. Getting an API key from [NewsAPI](https://newsapi.org/docs/get-started)
 
 ### How to run the service:

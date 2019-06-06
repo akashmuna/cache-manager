@@ -4,11 +4,15 @@ CachingManager is a Spring MVC + Redis CacheManager implemented application whic
 
 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial indexes with radius queries and streams. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster.
 
+The Project retrieves the current headlines and stores them in a Redis Cache
+
 ### PreRequisites :
 
-Installing Redis on your Local System
+1.Installing Redis on your Local System <br/>
 
-Follow the [Redis Guide](https://redis.io/download) to Install the Redis IO on your Local System.
+Follow the [Redis Guide](https://redis.io/download) to Install the Redis IO on your Local System. <br/>
+
+2. Getting an API key from [NewsAPI](https://newsapi.org/docs/get-started)
 
 ### How to run the service:
 1. Git Clone 

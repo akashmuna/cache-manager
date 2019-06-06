@@ -33,8 +33,12 @@ Installation of Redis Component is compulsory for this project to work.
 
 ### Endpoints
 
-localhost:8080/NewsAPI/HeadLines?newschannel=cnn - News Headlines Service
-Sources can be found in News API which needs to be passed in the parameter "newschannel"
+localhost:8080/NewsAPI/HeadLines?newschannel=cnn - News Headlines Service <br />
+[Sources](https://newsapi.org/sources) can be found in News API which needs to be passed in the parameter "newschannel"
+
+Examples <br />
+BBC Sport : bbc-sport <br />
+ESPN Cric Info : espn-cric-info
 
 ### Sample Calls
 

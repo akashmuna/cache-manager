@@ -33,10 +33,10 @@ public class HeadlineService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HeadlineService.class);
 	
-	@Cacheable("articleCache")
-	public List<Headline> retrieveResults() {
+	@Cacheable(value= "newsCache", key= "#newschannel")
+	public List<Headline> retrieveResults(String newschannel) {
 		
-		String restUrl = applicationConfiguration.getURL();
+		String restUrl = applicationConfiguration.getURL() + newschannel;
 		logger.debug("URL used to retrieve the News : "+ restUrl);
 		
 		HttpHeaders headers = new HttpHeaders();

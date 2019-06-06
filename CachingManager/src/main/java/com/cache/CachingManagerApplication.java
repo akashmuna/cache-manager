@@ -1,5 +1,6 @@
 package com.cache;
 
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CachingManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CachingManagerApplication.class, args);
+		final SpringApplication app = new SpringApplication(CachingManagerApplication.class);
+		app.setBannerMode(Banner.Mode.OFF);
+		app.run(args);
+		//SpringApplication.run(CachingManagerApplication.class, args);
 	}
 
 }

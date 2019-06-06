@@ -1,8 +1,10 @@
 package com.cache.model;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class Headline {
+public class Headline implements Serializable{
 	
 	@Autowired
 	private Source source;

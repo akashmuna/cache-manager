@@ -1,6 +1,8 @@
 package com.cache.model;
 
-public class Source {
+import java.io.Serializable;
+
+public class Source implements Serializable{
 	
 	private String id;
 	private String name;

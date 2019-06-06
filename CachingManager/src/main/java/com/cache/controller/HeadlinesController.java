@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cache.model.Headline;
@@ -19,9 +20,9 @@ public class HeadlinesController {
 	private HeadlineService headlineService;
 	
 	@RequestMapping(value ="/HeadLines",method=RequestMethod.GET)
-	public List<Headline> getNewResponse()
+	public List<Headline> getNewResponse(@RequestParam(value="newschannel") String newschannel)
 	{
-		return headlineService.retrieveResults();
+		return headlineService.retrieveResults(newschannel);
 	}
 
 }

@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class Headline implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6275346672464353857L;
 	@Autowired
 	private Source source;
 	private String author;

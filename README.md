@@ -1,6 +1,14 @@
 # cache-manager
 
-CachingManager is a Spring MVC + CacheManager implemented application which helps in holding up the response in a Spring's central cache manager SPI for a specified time period.
+CachingManager is a Spring MVC + Redis CacheManager implemented application which helps in holding up the response in Redis Caching system for a specified time period.
+
+Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial indexes with radius queries and streams. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster.
+
+### PreRequisites :
+
+Installing Redis on your Local System
+
+Follow the [Redis Guide](https://redis.io/download) to Install the Redis IO on your Local System.
 
 ### How to run the service:
 1. Git Clone 
@@ -13,24 +21,25 @@ CachingManager is a Spring MVC + CacheManager implemented application which help
     ```
 ### Solution Architecture 
 
-![Imgurl](https://imgur.com/0QfDg17.jpg)
+![Imgurl](https://i.imgur.com/rikeU19.jpg)
 
 Highlights :
 * Caching mechanism to speed up responses
 * Uses [NewsAPI](https://newsapi.org) to Fetch the top-headline of the day.
 
 #### Note:
-This is by no means a sophisticated CacheManager; it comes with no cache configuration options. However, it may be useful for testing or simple caching scenarios. For advanced local caching needs, consider JCacheCacheManager, EhCacheCacheManager, CaffeineCacheManager.
+Installation of Redis Component is compulsory for this project to work.
 
 ### Endpoints
 
-http://localhost:8080/ - News Headlines Service
+localhost:8080/NewsAPI/HeadLines?newschannel=cnn - News Headlines Service
+Sources can be found in News API which needs to be passed in the parameter "newschannel"
 
 ### Sample Calls
 
 Ex 1.: Getting CNN News Headlines (Powered by [NewsAPI](https://newsapi.org))
 ```bash
-localhost:8080/NewsAPI/HeadLines
+localhost:8080/NewsAPI/HeadLines?newschannel=cnn
 ```
 Sample response:
 ```json

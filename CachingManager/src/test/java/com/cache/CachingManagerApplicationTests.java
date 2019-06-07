@@ -38,7 +38,6 @@ public class CachingManagerApplicationTests {
 		headlineList.forEach(headline->{LOGGER.info("News Title : "+headline.getTitle());
 			LOGGER.info("News URL : "+headline.getUrl());
 		});
-		
 	}
 
 }

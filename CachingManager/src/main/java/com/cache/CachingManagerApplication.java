@@ -20,7 +20,6 @@ public class CachingManagerApplication extends SpringBootServletInitializer{
 		final SpringApplication app = new SpringApplication(CachingManagerApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
-		//SpringApplication.run(CachingManagerApplication.class, args);
 	}
 
 }

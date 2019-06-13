@@ -12,6 +12,7 @@
 	<artifactId>CachingManager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CachingManager</name>
+	<packaging>war</packaging>
 	<description>Managing cache</description>
 
 	<properties>
@@ -29,6 +30,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			 <scope>provided</scope>
 		</dependency>
 		
 		<!-- Implementing Redis Caches -->

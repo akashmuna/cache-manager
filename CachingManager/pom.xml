@@ -13,7 +13,7 @@
 	<version>1.0</version>
 	<name>CachingManager</name>
 	<packaging>war</packaging>
-	<description>Managing cache</description>
+	<description>Redis Cache with Spring MicroServices</description>
 
 	<properties>
 		<java.version>1.8</java.version>

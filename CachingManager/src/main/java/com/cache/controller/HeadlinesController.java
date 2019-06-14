@@ -19,7 +19,7 @@ public class HeadlinesController {
 	private HeadlineService headlineService;
 	
 	@RequestMapping(value ="/HeadLines",method=RequestMethod.GET)
-	public List<Headline> getNewResponse(@RequestParam(value="newsSource") String newschannel)
+	public List<Headline> getNewResponse(@RequestParam(value="newschannel") String newschannel)
 	{
 		return headlineService.retrieveResults(newschannel);
 	}

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: CachingManagerAuthToken
+Implementation-Version: 1.0
+Built-By: Akash_Mohapatra
+Implementation-Vendor-Id: com.cache
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/CachingManagerAuthToken
+Created-By: Maven Integration for Eclipse
+

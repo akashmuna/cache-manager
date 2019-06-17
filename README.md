@@ -10,5 +10,5 @@ CachingManager is a Spring MVC + Redis CacheManager implemented application whic
 
 ## CachingManagerAuthToken
 
-This is Spring secured application which generated a JSON Web-Based Taken (JWT) Token after authenticating the user.
+This is Spring secured application which generates a JSON Web-Based Taken (JWT) Token after authenticating the user.
 

@@ -1,6 +1,6 @@
 # cache-manager
 
-CachingManager is a Spring MVC + Redis CacheManager implemented application which helps in holding up the response in Redis Caching system for a specified time period.
+CachingManager is a Token Based Spring Secured MVC + Redis CacheManager implemented application which helps in holding up the response in Redis Caching system for a specified time period. CachingManager Application shares the list of headlines of many of the news channel after authorizing the user using Spring Security microservice (CachingManagerAuthToken)
 
 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial indexes with radius queries and streams. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster.
 
@@ -28,6 +28,7 @@ The Project retrieves the current headlines and stores them in a Redis Cache
 ![Imgurl](https://i.imgur.com/rikeU19.jpg)
 
 Highlights :
+* Token Based Authorization (Need to Pass the Token Generated using CachingManagerAuthToken)
 * Caching mechanism to speed up responses
 * Uses Redis IO caching mechanism to speed up your responses.
 * Uses [NewsAPI](https://newsapi.org) to Fetch the top-headline of the day.
@@ -37,7 +38,7 @@ Installation of Redis Component is compulsory for this project to work.
 
 ### Endpoints
 
-localhost:8080/NewsAPI/HeadLines?newschannel=cnn - News Headlines Service <br />
+localhost:8081/NewsAPI/HeadLines?newschannel=cnn - News Headlines Service <br />
 [Sources](https://newsapi.org/sources) can be found in News API which needs to be passed in the parameter "newschannel"
 
 Examples <br />
@@ -48,7 +49,10 @@ ESPN Cric Info : espn-cric-info
 
 Ex 1.: Getting CNN News Headlines (Powered by [NewsAPI](https://newsapi.org))
 ```bash
-localhost:8080/NewsAPI/HeadLines?newschannel=cnn
+curl -X POST \
+  'http://localhost:8080/newsapi/NewsAPI/HeadLines?newschannel=cnn' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2MDg3MDQyMSwiaWF0IjoxNTYwODUyNDIxfQ.zsOw_MKiZdTreWrdlcKhw0fFS8fYplfzJ6n2kPzv0juat8dOPVrv_CiWoUBb0Bvn4S8U40Jqq24jIdBI6zZH_g' \
+  -H 'Content-Type: application/json' \
 ```
 Sample response:
 ```json

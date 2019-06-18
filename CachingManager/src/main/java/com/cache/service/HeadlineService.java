@@ -62,4 +62,30 @@ public class HeadlineService {
 		
 	}
 
+	public String authorizeToken(String authorization) {
+		
+		String authenticationURL = applicationConfiguration.getAUTH_URL();
+		logger.debug("URL used to Authorize the Token : "+ authenticationURL);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setCacheControl("no-cache");
+		headers.set("Authorization", authorization);
+		
+		HttpEntity<String> Entity = new HttpEntity<String>(headers);
+		
+		try {
+			response = restTemplate.exchange(authenticationURL,HttpMethod.POST,Entity,String.class);
+		}
+		catch(RestClientException rce) {
+			logger.info("Please check the Debug logs...");
+			rce.printStackTrace();
+			
+			String message = "Call to the Authorize the Token failed";
+			throw new NewsAPIException(message, rce.getMessage(), authenticationURL);
+		}
+		
+		return (String) response.getBody();
+	}
+
 }

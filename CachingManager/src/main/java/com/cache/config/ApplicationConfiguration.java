@@ -10,6 +10,17 @@ public class ApplicationConfiguration {
 	
 	@Value("{app.URL}")
 	private String URL;
+	
+	@Value("{app.AUTH_URL}")
+	private String AUTH_URL;
+
+	public String getAUTH_URL() {
+		return AUTH_URL;
+	}
+
+	public void setAUTH_URL(String aUTH_URL) {
+		AUTH_URL = aUTH_URL;
+	}
 
 	public String getURL() {
 		return URL;

@@ -13,10 +13,28 @@ import com.cache.model.exception.ErrorMessage;
 @ControllerAdvice
 public class NewsAPIExceptionHandler extends ResponseEntityExceptionHandler {
 	
+	private static final String NOT_FOUND = "404";
+	private static final String UNAUTHORIZED = "401";
+	private static final String INTERNAL_SERVER_ERROR = "500";
+	
 	@ExceptionHandler(value= {NewsAPIException.class})
 	public ResponseEntity<Object> handleNewsAPIException(NewsAPIException e, WebRequest request){
 		
 		ErrorMessage errorMessage = new ErrorMessage(e.getStatus_code(), e.getUrl(), e.getMessage());
-		return new ResponseEntity<>(errorMessage,new HttpHeaders(),HttpStatus.NOT_FOUND);
+		
+		if(e.getStatus_code().equals(UNAUTHORIZED))
+			return new ResponseEntity<>(errorMessage,new HttpHeaders(),HttpStatus.UNAUTHORIZED);
+		else if(e.getStatus_code().equals(INTERNAL_SERVER_ERROR))
+			return new ResponseEntity<>(errorMessage,new HttpHeaders(),HttpStatus.INTERNAL_SERVER_ERROR);
+		else
+			return new ResponseEntity<>(errorMessage,new HttpHeaders(),HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(Exception.class)
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request)
+    {
+       
+        ErrorMessage errorMessage = new ErrorMessage(ex.getLocalizedMessage());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

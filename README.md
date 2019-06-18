@@ -2,7 +2,7 @@
 
 cache-manager is a Spring Secured MicroService + Redis Cache implemented application which helps in holding up the response in Redis Caching system for a specified time period after being authorized by the Eureka Gateway Using CachingManagerAuthToken application.
 
-The Application uses Netflix OSS eureka gateway to act as an API Gateway for the connecting to other microservices.
+The Application uses Netflix OSS eureka gateway to act as an API Gateway for connecting to other microservices.
 
 ## CachingManager
 

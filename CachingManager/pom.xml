@@ -12,7 +12,6 @@
 	<artifactId>CachingManager</artifactId>
 	<version>1.0</version>
 	<name>CachingManager</name>
-	<packaging>war</packaging>
 	<description>Redis Cache with Spring MicroServices</description>
 
 	<properties>
@@ -106,6 +105,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>docker-cachingmanager</finalName>
 	</build>
 
 </project>

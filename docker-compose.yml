@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+
+  gateway:
+    build:
+      context: GateWay
+    image: docker-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - cache-manager
+
+  cachingmanagerauth:
+    build:
+      context: CachingManagerAuthToken
+    image: docker-cachingmanagerauth
+    ports:
+      - "8082:8082"
+    links:
+     - gateway
+    networks:
+      - cache-manager
+    depends_on:
+      - gateway
+
+networks:
+  cache-manager:

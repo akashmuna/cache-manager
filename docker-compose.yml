@@ -1,24 +1,26 @@
-version: "3"
+version: "3.6"
 
 services:
 
   gateway:
-    build:
-      context: GateWay
+    build: ./GateWay
     image: docker-gateway
     ports:
       - "8080:8080"
+    hostname: eureka-gatewayserver
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-gatewayserver:8080/eureka
     networks:
       - cache-manager
 
   cachingmanagerauth:
-    build:
-      context: CachingManagerAuthToken
+    build: ./CachingManagerAuthToken
     image: docker-cachingmanagerauth
     ports:
       - "8082:8082"
-    links:
-     - gateway
+    hostname: cachingmanagerauth
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-gatewayserver:8080/eureka
     networks:
       - cache-manager
     depends_on:

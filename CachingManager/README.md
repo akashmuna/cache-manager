@@ -14,15 +14,6 @@ The Project retrieves the current headlines and stores them in a Redis Cache
 
 2. Getting an API key from [NewsAPI](https://newsapi.org/docs/get-started) use it in application.properties File.
 
-### How to run the service:
-1. Git Clone 
-    ```bash
-    https://github.com/akashmuna/cache-manager.git
-    ```
-2. Maven build
-    ```bash
-    mvn clean install
-    ```
 ### Solution Architecture 
 
 ![Imgurl](https://i.imgur.com/rikeU19.jpg)

@@ -11,7 +11,20 @@ services:
       dockerfile: Dockerfile
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-gatewayserver:8080/eureka/
-    tty: false
+    depends_on:
+      - gateway
+    networks:
+      - cache-manager
+
+  zuul:
+    port:
+      - "9091:9091"
+    image: docker-zuulservice
+    build:
+      context: ./Zuul
+      dockerfile: Dockerfile
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-gatewayserver:8080/eureka
     depends_on:
       - gateway
     networks:
@@ -26,7 +39,6 @@ services:
       dockerfile: Dockerfile
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-gatewayserver:8080/eureka/
-    tty: false
     networks:
       - cache-manager
 

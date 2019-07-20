@@ -1,15 +1,16 @@
-version: "3"
+version: "3.6"
 
 services:
 
   cachingmanagerauth:
-    ports:
-      - "8082:8082"
+    container_name: cachingmanagerauthservice
     image: docker-cachingmanagerauth
     build:
       context: ./CachingManagerAuthToken
       dockerfile: Dockerfile
-    hostname: cachingmanagerauthservice
+    ports:
+      - "8082:8082"
+    hostname: cachingmanagerauthservice.cache.com
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-gatewayserver:8080/eureka
     depends_on:
@@ -18,13 +19,14 @@ services:
       - cache-manager
 
   zuul:
-    ports:
-      - "9091:9091"
+    container_name: zuulservice
     image: docker-zuulservice
     build:
       context: ./Zuul
       dockerfile: Dockerfile
-    hostname: zuulservice
+    ports:
+      - "9091:9091"
+    hostname: zuulservice.cache.com
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-gatewayserver:8080/eureka
     depends_on:
@@ -33,12 +35,13 @@ services:
       - cache-manager
 
   gateway:
-    ports:
-      - "8080:8080"
+    container_name: eureka-gatewayserver
     image: docker-gateway
     build:
       context: ./GateWay
       dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
     hostname: eureka-gatewayserver
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-gatewayserver:8080/eureka

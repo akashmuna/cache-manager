@@ -22,11 +22,23 @@ This is Spring secured application which generates a JSON Web-Based Token (JWT) 
 
 ### How to run the service:
 1. Git Clone 
+
     ```bash
     https://github.com/akashmuna/cache-manager.git
     ```
 2. Maven build
+
     ```bash
     mvn clean install
-    ```
+	```
+3. Run docker-compose
 
+	```bash
+	docker-compose up
+	```
+	
+### Endpoints
+
+http://localhost:8080/ - Eureka Discovery Service
+
+http://localhost:9091/ - Zuul Proxy Gateway

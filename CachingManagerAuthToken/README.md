@@ -34,6 +34,6 @@ curl -X POST \
 Sample Response:
 ```json
 	{
-    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2MzYyNDI0MywiaWF0IjoxNTYzNjA2MjQzfQ.jcLc6gNxyV5OdV2QuX5FKSkN4IOyWkcRb1YS4gyGI8tOk-oTkzyyT8UPWVoBl2YgfrTjIIzQYyJ5XQn03kCZBQ"
+    		"token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2MzYyNDI0MywiaWF0IjoxNTYzNjA2MjQzfQ.jcLc6gNxyV5OdV2QuX5FKSkN4IOyWkcRb1YS4gyGI8tOk-oTkzyyT8UPWVoBl2YgfrTjIIzQYyJ5XQn03kCZBQ"
 	}
 ```

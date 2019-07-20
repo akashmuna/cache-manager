@@ -50,7 +50,7 @@ ESPN Cric Info : espn-cric-info
 Ex 1.: Getting CNN News Headlines (Powered by [NewsAPI](https://newsapi.org))
 ```bash
 curl -X POST \
-  'http://localhost:8080/newsapi/NewsAPI/HeadLines?newschannel=cnn' \
+  'http://localhost:9091/newsapi/NewsAPI/HeadLines?newschannel=cnn' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2MDg3MDQyMSwiaWF0IjoxNTYwODUyNDIxfQ.zsOw_MKiZdTreWrdlcKhw0fFS8fYplfzJ6n2kPzv0juat8dOPVrv_CiWoUBb0Bvn4S8U40Jqq24jIdBI6zZH_g' \
   -H 'Content-Type: application/json' \
 ```

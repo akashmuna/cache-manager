@@ -29,7 +29,7 @@ This is Spring secured application which generates a JSON Web-Based Token (JWT) 
     https://github.com/akashmuna/cache-manager.git
     ```
     
-2. Getting an API key from [NewsAPI](https://newsapi.org/docs/get-started) use it in application.properties file for CachingManager.
+2. Get an API key from [NewsAPI](https://newsapi.org/docs/get-started) use it in application.properties file for CachingManager.
 
 	```bash
 	app.NEWS_API_KEY=

@@ -8,6 +8,8 @@ The Application uses Netflix OSS eureka gateway to act as an API Gateway for con
 
 Eureka Server which acts single point of connect which has to be highly available as every service communicates it to discover other services.
 
+Note : As this the single point of communication, this needs to be Load-balanced in Production setup
+
 ## Zuul
 
 Eureka Client which helps to route the request to CachingManager and CachingManagerAuthToken
@@ -39,6 +41,32 @@ This is Spring secured application which generates a JSON Web-Based Token (JWT) 
 	
 ### Endpoints
 
-http://localhost:8080/ - Eureka Discovery Service
+Local System EndPoints:
 
-http://localhost:9091/ - Zuul Proxy Gateway
+	http://localhost:8080/ - Eureka Discovery Service
+
+	http://localhost:9091/ - Zuul Proxy Gateway
+
+Docker EndPoints:
+
+	http://eureka-gatewayserver:8080/ - Eureka Discovery Service
+
+	http://eureka-gatewayserver:9091/ - Zuul Proxy Gateway
+
+### API EndPoints
+
+Both the shared services support POST method while retrieving the news, sports headlines and this would request for a JWT Token to share the response. 
+
+Local System EndPoints:
+
+	http://localhost:9091/authenticate  - CachingManagerAuthToken
+
+	http://localhost:9091/newsapi/NewsAPI/HeadLines?newschannel=cnn  - CachingManager
+
+Docker EndPoints:
+
+	http://eureka-gatewayserver:9091/authenticate  - CachingManagerAuthToken
+
+	http://eureka-gatewayserver:9091/newsapi/NewsAPI/HeadLines?newschannel=cnn  - CachingManager
+	
+Go through the README file for each individual service CachingManagerAuthToken and CachingManager to view the request format. 

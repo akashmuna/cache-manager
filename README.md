@@ -28,12 +28,17 @@ This is Spring secured application which generates a JSON Web-Based Token (JWT) 
     ```bash
     https://github.com/akashmuna/cache-manager.git
     ```
-2. Maven build
+    
+2. Getting an API key from [NewsAPI](https://newsapi.org/docs/get-started) use it in application.properties file for CachingManager
+app.NEWS_API_KEY=
+
+3. Maven build
 
     ```bash
     mvn clean install
 	```
-3. Run docker-compose
+	
+4. Run docker-compose
 
 	```bash
 	docker-compose up

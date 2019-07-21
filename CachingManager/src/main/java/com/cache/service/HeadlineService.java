@@ -31,11 +31,13 @@ public class HeadlineService {
 	private ResponseEntity response; 
 	
 	private static final Logger logger = LoggerFactory.getLogger(HeadlineService.class);
+	private static final String SOURCES = "sources";
+	private static final String APIKEY = "apiKey";
 	
 	@Cacheable(value= "newsCache", key= "#newschannel")
 	public List<Headline> retrieveResults(String newschannel) {
 		
-		String restUrl = applicationConfiguration.getURL() + newschannel;
+		String restUrl = applicationConfiguration.getURL() + APIKEY + "="+ applicationConfiguration.getNEWS_API_KEY() + "&" + SOURCES + "="+ newschannel;
 		logger.debug("URL used to retrieve the News : "+ restUrl);
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -54,8 +56,7 @@ public class HeadlineService {
 			String message = "Call to the NEWSAPI.org failed";
 			throw new NewsAPIException(message, rce.getMessage(), restUrl);
 		}
-		
-		
+			
 		NewsAPIResponse newsApiResponse = (NewsAPIResponse) response.getBody();
 		
 		return newsApiResponse.getArticles();

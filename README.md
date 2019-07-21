@@ -31,9 +31,9 @@ This is Spring secured application which generates a JSON Web-Based Token (JWT) 
     
 2. Getting an API key from [NewsAPI](https://newsapi.org/docs/get-started) use it in application.properties file for CachingManager.
 
-```bash
-app.NEWS_API_KEY=
-```
+	```bash
+	app.NEWS_API_KEY=
+	```
 
 3. Maven build
 

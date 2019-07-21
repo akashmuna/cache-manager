@@ -38,7 +38,7 @@ This is Spring secured application which generates a JSON Web-Based Token (JWT) 
 3. Maven build
 
     ```bash
-    mvn clean install
+    mvn clean package
 	```
 	
 4. Run docker-compose

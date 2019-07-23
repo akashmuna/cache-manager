@@ -13,6 +13,17 @@ public class ApplicationConfiguration {
 	
 	@Value("{app.AUTH_URL}")
 	private String AUTH_URL;
+	
+	@Value("{app.NEWS_API_KEY}")
+	private String NEWS_API_KEY;
+
+	public String getNEWS_API_KEY() {
+		return NEWS_API_KEY;
+	}
+
+	public void setNEWS_API_KEY(String nEWS_API_KEY) {
+		NEWS_API_KEY = nEWS_API_KEY;
+	}
 
 	public String getAUTH_URL() {
 		return AUTH_URL;

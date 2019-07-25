@@ -37,7 +37,7 @@ public class HeadlinesController {
 		                @Authorization(value = "JWT", scopes = {}),
 		                @Authorization(value = "Bearer")
 		        },
-			    notes = "Multiple status values can be provided with comma seperated strings",
+			    notes = "Pass the Authorization Bearer Token and News Channel Source",
 			    response = Headline.class,
 			    responseContainer = "List")
 	@ApiResponses(value = {

@@ -32,7 +32,7 @@ public class HeadlinesController {
 	
 	private static String tokenAuthorization = "failure" ; 
 	
-	@ApiOperation(value = "/NewsAPI/HeadLines",
+	@ApiOperation(value = "Lists all the Headline for the current date",
 				authorizations = {
 		                @Authorization(value = "JWT", scopes = {}),
 		                @Authorization(value = "Bearer")
@@ -51,7 +51,7 @@ public class HeadlinesController {
 	    @ApiImplicitParam(name = "Authorization", value = "Bearer + Token generated", required = true, dataType = "string", paramType = "header")
 	  })
 	@RequestMapping(value ="/HeadLines",method=RequestMethod.POST)
-	public List<Headline> getNewResponse(
+	public List<Headline> getNewsResponse(
 			@ApiParam(value = "news source code", required = true) @RequestParam(value="newschannel") String newschannel,
 			@RequestHeader(name="Authorization") String Authorization)
 	{
@@ -65,6 +65,42 @@ public class HeadlinesController {
 			throw new NewsAPIException("Token Not Valid","401","/NewsAPI/HeadLines");
 		
 		return headlineService.retrieveResults(newschannel);
+	}
+	
+	
+	@ApiOperation(value = "Lists all the Headline for the current date Based on Country and Categories",
+			authorizations = {
+	                @Authorization(value = "JWT", scopes = {}),
+	                @Authorization(value = "Bearer")
+	        },
+		    notes = "Pass the Authorization Bearer Token and News Channel Source",
+		    response = Headline.class,
+		    responseContainer = "List")
+	@ApiResponses(value = {
+	        @ApiResponse(code = 200, message = "Successfully retrieved list"),
+	        @ApiResponse(code = 401, message = "You are not authorized to view the response"),
+	        @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+	        @ApiResponse(code = 500, message = "Internal Server Error")
+	    })
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "Authorization", value = "Bearer + Token generated", required = true, dataType = "string", paramType = "header")
+	})
+	@RequestMapping(value ="/CountryHeadLines",method=RequestMethod.POST)
+	public List<Headline> getNewsResponse(@ApiParam(value = "country", required = true) @RequestParam(value="country") String country,
+			@ApiParam(value = "country", required = false) @RequestParam(value="category", required= false) String category,@RequestHeader(name="Authorization") String Authorization){
+		
+		if (Authorization.equals("") || Authorization == null)
+			throw new NewsAPIException("Token Not Provided","401","/NewsAPI/HeadLines");
+		
+		// Authorize the Token
+		tokenAuthorization = headlineService.authorizeToken(Authorization);
+		
+		if (tokenAuthorization.equals("failure"))
+			throw new NewsAPIException("Token Not Valid","401","/NewsAPI/HeadLines");
+		
+		return headlineService.retrieveResultsWithCountry(country,category);
+		
 	}
 
 }

@@ -33,6 +33,8 @@ public class HeadlineService {
 	private static final Logger logger = LoggerFactory.getLogger(HeadlineService.class);
 	private static final String SOURCES = "sources";
 	private static final String APIKEY = "apiKey";
+	private static final String COUNTRY = "country";
+	private static final String CATEGORY = "category";
 	
 	@Cacheable(value= "newsCache", key= "#newschannel")
 	public List<Headline> retrieveResults(String newschannel) {
@@ -87,6 +89,34 @@ public class HeadlineService {
 		}
 		
 		return (String) response.getBody();
+	}
+
+	@Cacheable(value= "countryCache", key= "#country.concat('-').concat(#category)")
+	public List<Headline> retrieveResultsWithCountry(String country, String category) {
+		
+		String restUrl = applicationConfiguration.getURL() + APIKEY + "="+ applicationConfiguration.getNEWS_API_KEY() + "&" + COUNTRY + "="+ country +  "&" + CATEGORY + "=" + category;
+		logger.debug("URL used to retrieve the News : "+ restUrl);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setCacheControl("no-cache");
+		
+		HttpEntity<String> Entity = new HttpEntity<String>(headers);
+		
+		try {
+			response = restTemplate.exchange(restUrl,HttpMethod.GET,Entity,NewsAPIResponse.class);
+		}
+		catch(RestClientException rce) {
+			logger.info("Please check the Debug logs...");
+			rce.printStackTrace();
+			
+			String message = "Call to the NEWSAPI.org failed";
+			throw new NewsAPIException(message, rce.getMessage(), restUrl);
+		}
+			
+		NewsAPIResponse newsApiResponse = (NewsAPIResponse) response.getBody();
+		
+		return newsApiResponse.getArticles();
 	}
 
 }
